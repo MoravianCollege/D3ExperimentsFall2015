@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Experiments</title>
+        <script type="text/javascript" src="d3/d3.v3.js"></script>
+    </head>
+    
+    <!--<svg w=500, h=500></svg>-->
+    
+    <body>
+        <script type="text/javascript" src="d3Experiment.js"></script>
+        
+        <script type="text/javascript">
+            
+            //var data1 = [{x: 100,y: 100,r: 5}, {x: 200, y: 200, r: 10}, {x: 300, y: 300, r: 15}];
+            
+            var data1 = "d3ExperimentCircle.csv";
+            
+            //var data2 = [{x: 5, y: 10}, {x: 20, y: 100}, {x: 50, y: 300}];
+            
+            var data2 = "d3ExperimentSquare.csv";
+            
+            var experiment = new circleCreator(data1, data2);
+            
+        </script>
+    
+    </body>
+</html>
