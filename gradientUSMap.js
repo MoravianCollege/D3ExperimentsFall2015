@@ -78,7 +78,46 @@ function GradientMap(feature){
     this.zoom = d3.behavior.zoom()
         .scaleExtent([1, 10])
         .on("zoom", this.zoomWithObservers);
-    
+
+    //adding data finder functions to return arrays
+    this.getStateData = function(state){
+        //user entered function
+        //this.nationalData = [];
+        var file = "json/poke_ratio_correct2.csv";
+
+
+        var data = "";
+
+        $.ajaxSetup({async:false});
+
+        $.get(file, function(text)
+        {
+            //async: false;
+            data = Papa.parse(text);
+            //console.log(data);
+        });
+
+        console.log(data);
+
+        this.nationalData = data;
+
+    };
+
+    this.getStateData();
+
+    this.getCountyData = function(county){
+        //user entered function
+    };
+
+    //adding functions to allow user to add data finder functions
+    this.setGetStateData = function(func){
+        this.getStateData = func;
+    };
+
+    this.setGetCountyData = function(func){
+        this.getStateData = func;
+    };
+
     this.setup = function(){
         
         //d3.select("#mapContainer")
@@ -200,9 +239,9 @@ function GradientMap(feature){
             var c_y = ((window.pageYOffset + event.screenY - zoom[1])/zoom[0]) + "px";
 
 
-            console.log("event.screenX ,", event.screenX + "px");
-            console.log("event.screenY ,", event.screenY + "px");
-            console.log("Zoom:", detectZoom.zoom());
+            //console.log("event.screenX ,", event.screenX + "px");
+            //console.log("event.screenY ,", event.screenY + "px");
+            //console.log("Zoom:", detectZoom.zoom());
         }
         
         //state
@@ -595,7 +634,7 @@ function GradientMap(feature){
 
     this.tooltipHtml = function(n, d){    /* function to create html content string in tooltip div. */
         var fancy_features = [];
-        console.log(d);
+        //console.log(d);
         for(var x = 0; x < getFeatures().length; x++){
             var feat = getFeatures()[x];
             feat = feat.replace("_", "&nbsp");

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="d3/d3.v3.js"></script>
+    <script type="text/javascript" src="mapExperiment.js"></script>
+
+</head>
+<body>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+    <script src="PapaParse-4.1.2/papaparse.min.js"></script>
+
+    <div id="mapContainer"></div>
+
+    <script>
+
+        getStateData = function(){
+
+            var file = "json/poke_ratio_correct2.csv";
+
+            var data = "";
+
+            $.ajaxSetup({async:false});
+
+            $.get(file, function(text)
+            {
+
+                data = Papa.parse(text);
+
+            });
+
+            var newData = data.data;
+
+            var retData = [];
+
+            for(i = 1; i < newData.length; i++){
+
+                retData.push(newData[i]);
+
+            };
+
+            return retData;
+
+        };
+
+
+
+        var map = new GradientMap();
+        map.setNationalDataFunction(getStateData);
+        map.setup();
+        map.drawMap();
+
+    </script>
+
+</body>
+</html>
