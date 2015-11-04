@@ -13,7 +13,7 @@ function GradientMap(){
 
     this.id = makeId();
 
-    this.nationalData = ""
+    this.nationalData = "";
 
     this.mapJSON = "json/us-states.json";
 
@@ -21,14 +21,18 @@ function GradientMap(){
 
     this.w = 1000;
 
+    var color;
+
+    //color = d3.scale.quantize()
+        //.range(makeRange(10, 0, 255));
+
+    this.abbreviations;
+
     this.getNationalData = function(){}; //used to get national data array. User entered
 
     var map = this;
 
     this.setup = function(){
-
-        //var container = document.createElement("div")
-            //.attr("id", "mapContainer");
 
         this.mapDiv = d3.select("#mapContainer")
             .append("div")
@@ -63,7 +67,20 @@ function GradientMap(){
                 })
                 .attr("stroke", "black")
                 .attr("stroke-width", "1")
-                .style("fill", "rgb(0,0,255)");
+                //.style("fill", "rgb(0,0,255)");
+                .style("fill", function(d){
+                    var state = d.properties.name;
+                    var stateLetters = map.abbreviations[state];
+                    //for(i = 0; i < map.nationalData.length; i++){
+                        //if(map.nationalData[i][0] == stateLetters){
+                            //console.log(stateLetters);
+                            //console.log("rgb(0,0," + (Math.floor(Math.pow(2, map.nationalData[i][1] * 4))).toString() + ")")
+                            //return "rgb(0,0," + (Math.floor(Math.pow(2, map.nationalData[i][1] * 4))).toString() + ")";
+                            //return color(map.nationalData[i][1] * 100);
+                        //}
+                    //}
+                    return "rgb(0,0," + (Math.floor(Math.pow(2, map.nationalData[stateLetters] * 4))).toString() + ")";
+                });
 
         });
 
@@ -76,6 +93,16 @@ function GradientMap(){
         this.getNationalData = fun;
 
         this.nationalData = this.getNationalData();
+
+        return this;
+
+    }
+
+    this.setAbbreviations = function(abbr){
+
+        this.abbreviations = abbr;
+
+        return this;
 
     }
 
