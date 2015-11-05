@@ -107,3 +107,11 @@ function GradientMap(){
     }
 
 }
+
+function ColorMap(minColor, maxColor){
+
+    this.minColor = minColor;
+
+    this.maxColor = maxColor;
+
+}
