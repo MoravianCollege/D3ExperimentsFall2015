@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="d3/d3.v3.js"></script>
+    <script type="text/javascript" src="mapExperiment.js"></script>
+
+</head>
+<body>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+    <script src="PapaParse-4.1.2/papaparse.min.js"></script>
+
+    <div id="mapContainer"></div>
+
+    <script>
+        getStateData = function(){
+            var file = "json/poke_ratio_correct2.csv";
+            var data = "";
+            $.ajaxSetup({async:false});
+            $.get(file, function(text)
+            {
+                data = Papa.parse(text);
+            });
+            var newData = data.data;
+            var retData = [];
+            for(i = 1; i < newData.length; i++){
+                retData.push(newData[i]);
+            };
+            retDict = {}
+            for(i = 0; i < retData.length; i++){
+                retDict[retData[i][0]] = retData[i][1];
+            }
+            return retDict;
+        };
+        var state_abbreviations = {};
+        state_abbreviations["Alabama"] = "AL";
+        state_abbreviations["Alaska"] = "AK";
+        state_abbreviations["Arizona"] = "AZ";
+        state_abbreviations["Arkansas"] = "AR";
+        state_abbreviations["California"] = "CA";
+        state_abbreviations["Colorado"] = "CO";
+        state_abbreviations["Connecticut"] = "CT";
+        state_abbreviations["Delaware"] = "DE";
+        state_abbreviations["District of Columbia"] = "DC";
+        state_abbreviations["Florida"] = "FL";
+        state_abbreviations["Georgia"] = "GA";
+        state_abbreviations["Hawaii"] = "HI";
+        state_abbreviations["Idaho"] = "ID";
+        state_abbreviations["Illinois"] = "IL";
+        state_abbreviations["Indiana"] = "IN";
+        state_abbreviations["Iowa"] = "IA";
+        state_abbreviations["Kansas"] = "KS";
+        state_abbreviations["Kentucky"] = "KY";
+        state_abbreviations["Louisiana"] = "LA";
+        state_abbreviations["Maine"] = "ME";
+        state_abbreviations["Maryland"] = "MD";
+        state_abbreviations["Massachusetts"] = "MA";
+        state_abbreviations["Michigan"] = "MI";
+        state_abbreviations["Minnesota"] = "MN";
+        state_abbreviations["Mississippi"] = "MS";
+        state_abbreviations["Missouri"] = "MO";
+        state_abbreviations["Montana"] = "MT";
+        state_abbreviations["Nebraska"] = "NE";
+        state_abbreviations["Nevada"] = "NV";
+        state_abbreviations["New Hampshire"] = "NH";
+        state_abbreviations["New Jersey"] = "NJ";
+        state_abbreviations["New Mexico"] = "NM";
+        state_abbreviations["New York"] = "NY";
+        state_abbreviations["North Carolina"] = "NC";
+        state_abbreviations["North Dakota"] = "ND";
+        state_abbreviations["Ohio"] = "OH";
+        state_abbreviations["Oklahoma"] = "OK";
+        state_abbreviations["Oregon"] = "OR";
+        state_abbreviations["Pennsylvania"] = "PA";
+        state_abbreviations["Rhode Island"] = "RI";
+        state_abbreviations["South Carolina"] = "SC";
+        state_abbreviations["South Dakota"] = "SD";
+        state_abbreviations["Tennessee"] = "TN";
+        state_abbreviations["Texas"] = "TX";
+        state_abbreviations["Utah"] = "UT";
+        state_abbreviations["Vermont"] = "VT";
+        state_abbreviations["Virginia"] = "VA";
+        state_abbreviations["Washington"] = "WA";
+        state_abbreviations["West Virginia"] = "WV";
+        state_abbreviations["Wisconsin"] = "WI";
+        state_abbreviations["Wyoming"] = "WY";
+        state_abbreviations["Puerto Rico"] = "PR";
+        
+        var map = new GradientMap();
+        map.setAbbreviations(state_abbreviations);
+        map.setNationalDataFunction(getStateData);
+        map.setup();
+        map.drawMap();
+    </script>
+
+</body>
+</html>
