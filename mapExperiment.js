@@ -1,4 +1,3 @@
-//Bill's map
 makeId = (function(){
     var counter = 0;
 
@@ -56,7 +55,6 @@ function GradientMap(){
             .projection(this.projection);
 
         d3.json(map.mapJSON, function(json){
-
             map.svg.selectAll("path")
                 .data(json.features)
                 .enter()
@@ -70,48 +68,16 @@ function GradientMap(){
                 //.style("fill", "rgb(0,0,255)");
                 .style("fill", function(d){
                     var state = d.properties.name;
-                    var stateLetters = map.abbreviations[state];
-                    //for(i = 0; i < map.nationalData.length; i++){
-                        //if(map.nationalData[i][0] == stateLetters){
-                            //console.log(stateLetters);
-                            //console.log("rgb(0,0," + (Math.floor(Math.pow(2, map.nationalData[i][1] * 4))).toString() + ")")
-                            //return "rgb(0,0," + (Math.floor(Math.pow(2, map.nationalData[i][1] * 4))).toString() + ")";
-                            //return color(map.nationalData[i][1] * 100);
-                        //}
-                    //}
-                    return "rgb(0,0," + (Math.floor(Math.pow(2, map.nationalData[stateLetters] * 4))).toString() + ")";
+                    return "rgb(0,0," + (Math.floor(Math.pow(2, map.nationalData[state] * 4))).toString() + ")";
                 });
 
         });
-
         return this;
-
     }
 
     this.setNationalDataFunction = function(fun){
-
         this.getNationalData = fun;
-
         this.nationalData = this.getNationalData();
-
         return this;
-
     }
-
-    this.setAbbreviations = function(abbr){
-
-        this.abbreviations = abbr;
-
-        return this;
-
-    }
-
-}
-
-function ColorMap(minColor, maxColor){
-
-    this.minColor = minColor;
-
-    this.maxColor = maxColor;
-
 }
